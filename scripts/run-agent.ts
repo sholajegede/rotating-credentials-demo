@@ -5,13 +5,14 @@ import Anthropic from "@anthropic-ai/sdk";
 import { getCredential } from "../lib/credentialManager";
 import { getConvexClient } from "../lib/convexClient";
 import { api } from "../convex/_generated/api";
-import { isAgentMode, type AgentAction } from "../lib/actionRegistry";
+import { isAgentMode, type AgentAction, type AgentMode } from "../lib/actionRegistry";
 
-const mode = process.argv[2]?.replace("--mode=", "") ?? "";
-if (!isAgentMode(mode)) {
+const rawMode = process.argv[2]?.replace("--mode=", "") ?? "";
+if (!isAgentMode(rawMode)) {
   console.error("Usage: tsx scripts/run-agent.ts --mode=static|rotating");
   process.exit(1);
 }
+const mode: AgentMode = rawMode;
 
 const convex = getConvexClient();
 const anthropic = new Anthropic();

@@ -55,7 +55,7 @@ http.route({
     } catch {
       claimedClientId = undefined;
     }
-    const claimedMode = modeForClientId(claimedClientId) ?? "static";
+    const claimedMode = modeForClientId(claimedClientId) ?? "unknown";
     const tokenPrint = token ? await fingerprint(token) : "none";
 
     async function deny(status: number, reason: string) {

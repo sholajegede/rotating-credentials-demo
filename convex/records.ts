@@ -42,7 +42,7 @@ export const logCredentialEvent = mutation({
 
 export const logActionEvent = mutation({
   args: {
-    mode: v.union(v.literal("static"), v.literal("rotating")),
+    mode: v.union(v.literal("static"), v.literal("rotating"), v.literal("unknown")),
     action: v.string(),
     tokenFingerprint: v.string(),
     allowed: v.boolean(),

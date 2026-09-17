@@ -16,9 +16,12 @@ export default defineSchema({
     expiresAt: v.number(),
   }).index("by_mode_issuedAt", ["mode", "issuedAt"]),
 
-  // Every call an agent makes against the records API.
+  // Every call an agent makes against the records API. "unknown" covers
+  // requests whose token didn't map to either known agent client - a
+  // missing or garbage credential should never be misattributed to the
+  // static agent just because that's the fallback bucket.
   actionEvents: defineTable({
-    mode: v.union(v.literal("static"), v.literal("rotating")),
+    mode: v.union(v.literal("static"), v.literal("rotating"), v.literal("unknown")),
     action: v.string(),
     tokenFingerprint: v.string(),
     allowed: v.boolean(),
